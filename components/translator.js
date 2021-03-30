@@ -18,6 +18,11 @@ class Translator {
         if(this.locale == "american-to-british") {
             translationArr = textArr.map(word => {
                 const lowerCasedWord = word.toLowerCase();
+                const timeRegex = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
+                if(timeRegex.test(word)) {
+                    const returning = word.replace(':', '.');
+                    return `<span class="highlight">${returning}</span>`
+                }
                 if(americanOnly[lowerCasedWord]) {
                     const returning =  americanOnly[lowerCasedWord];
                     return `<span class="highlight">${returning}</span>`
@@ -43,6 +48,11 @@ class Translator {
         } else if (this.locale == "british-to-american"){
             translationArr = textArr.map(word => {
                 const lowerCasedWord = word.toLowerCase();
+                const timeRegex = /^([01]?[0-9]|2[0-3])\.[0-5][0-9]$/;
+                if(timeRegex.test(word)) {
+                    const returning = word.replace('.', ':');
+                    return `<span class="highlight">${returning}</span>`
+                }
                 if(britishOnly[lowerCasedWord]) {
                     const returning = britishOnly[lowerCasedWord];
                     return `<span class="highlight">${returning}</span>`
