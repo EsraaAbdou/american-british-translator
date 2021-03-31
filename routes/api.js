@@ -15,16 +15,10 @@ module.exports = function (app) {
       } else if(locale !== "american-to-british" && locale !== "british-to-american") {
         res.send({"error": "Invalid value for locale field"});
       } else if(text) {
-        const translator = new Translator(text, locale);
-        let translation = '';
-        if(translator.translatedText === text) {
-          translation = "Everything looks good to me!";
-        } else {
-          translation = translator.translatedText;
-        }
+        const translator = new Translator(text, locale, true);
         res.send({
           "text": text,
-          "translation": translation
+          "translation": translator.translatedText
         });
       } else {
         res.send({"error": "No text to translate"});
